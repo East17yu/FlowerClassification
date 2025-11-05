@@ -1,0 +1,9 @@
+keras==2.8.0
+matplotlib==3.9.4
+numpy==1.26.4
+opencv-python==4.11.0.86
+pandas==2.2.3
+pillow==11.2.1
+tensorflow==2.8.0
+tensorflow-gpu==2.8.0
+tqdm==4.67.1
