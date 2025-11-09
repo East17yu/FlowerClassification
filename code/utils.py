@@ -133,13 +133,16 @@ def get_data_generator(train_path, val_path):
     split_train_val()
 
     train_datagen = ImageDataGenerator(
-        rescale=1. / 255,
-        rotation_range=20,
+        rescale=1./255,
+        rotation_range=30,  # 增加旋转范围
         width_shift_range=0.3,
         height_shift_range=0.3,
         horizontal_flip=True,
-        zoom_range=0.2,
-        shear_range=0.2,
+        vertical_flip=True,  # 增加垂直翻转
+        zoom_range=0.3,  # 增加缩放范围
+        shear_range=0.3,
+        brightness_range=[0.8, 1.2],  # 亮度变化
+        channel_shift_range=0.2,  # 通道偏移
         fill_mode='nearest'
     )
     train_generator = train_datagen.flow_from_directory(
@@ -161,13 +164,6 @@ def get_data_generator(train_path, val_path):
 
     return train_generator, val_generator
 
-def classes_indices(path):
-    classes = [cla for cla in os.listdir(path) if os.path.isdir(os.path.join(path, cla))]
-    classes.sort()
-    class_indices = dict((k, v) for v, k in enumerate(classes))
-
-    return class_indices
-
 @dataclass
 class Config:
     """
@@ -176,7 +172,7 @@ class Config:
     data_root: str = "../data/newData"
     train_path: str = "../data/dataSet/train"
     val_path: str = "../data/dataSet/val"
-    model_path: str = "../model/best.h5"
+    model_path: str = "../model/best_model.h5"
     img_size: int = 224
     batch_size: int = 32
     optimizer: str = 'Adam'
